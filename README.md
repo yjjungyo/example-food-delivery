@@ -1,8 +1,8 @@
 ![image](https://user-images.githubusercontent.com/487999/79708354-29074a80-82fa-11ea-80df-0db3962fb453.png)
 
-![image](https://user-images.githubusercontent.com/24926691/97937381-e3a3f980-1dc1-11eb-9ba2-a67033223e33.png)
 
-# 예제 - 음식배달
+
+# 예제 - BookMall
 
 본 예제는 MSA/DDD/Event Storming/EDA 를 포괄하는 분석/설계/구현/운영 전단계를 커버하도록 구성한 예제입니다.
 이는 클라우드 네이티브 애플리케이션의 개발에 요구되는 체크포인트들을 통과하기 위한 예시 답안을 포함합니다.
@@ -42,15 +42,31 @@
 1. 고객이 주문상태를 중간중간 조회한다
 1. 주문상태가 바뀔 때 마다 카톡으로 알림을 보낸다
 
+
+===> 
+ 1. 고객은 책을 주문한다
+ 1. 고객이 주문을 할때는 반드시 결제가 되어야 한다.(Req/Rep) ( Circuit Breaker(결제 지연))
+
+
+  1. 결제가 완료되면 배송을 시작한다. ( Pub / Sub Event Dirven )
+  1. 결제가 취소되면 배송을 취소한다. 
+
+  1. 결제완료되면 주문 상태를 변경한다 ( Pub / Sub Event Dirven )
+  1. 배송이 시작되면 주문 상태를 변경한다 ( Pub / Sub Event Dirven )
+
+  1. 고객은 주문을 취소한다. 
+  1. 주문이 취소되면 결제를 취소하여 고객에게 환불한다. ( Pub / Sub Event Dirven )
+
+
 비기능적 요구사항
 1. 트랜잭션
     1. 결제가 되지 않은 주문건은 아예 거래가 성립되지 않아야 한다  Sync 호출 
 1. 장애격리
-    1. 상점관리 기능이 수행되지 않더라도 주문은 365일 24시간 받을 수 있어야 한다  Async (event-driven), Eventual Consistency
+    1. 배송 기능이 수행되지 않더라도 주문은 365일 24시간 받을 수 있어야 한다  Async (event-driven), Eventual Consistency
     1. 결제시스템이 과중되면 사용자를 잠시동안 받지 않고 결제를 잠시후에 하도록 유도한다  Circuit breaker, fallback
 1. 성능
-    1. 고객이 자주 상점관리에서 확인할 수 있는 배달상태를 주문시스템(프론트엔드)에서 확인할 수 있어야 한다  CQRS
-    1. 배달상태가 바뀔때마다 카톡 등으로 알림을 줄 수 있어야 한다  Event driven
+    1. 고객이 주문상태를 MyPage에서 확인할 수 있다.  CQRS
+<====
 
 
 # 체크포인트
