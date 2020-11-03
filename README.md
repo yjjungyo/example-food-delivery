@@ -44,7 +44,7 @@ BookMarket 커버하기 - https://1sung.tistory.com/106
 
 
 ====================> 
- 1. 고객은 책을 주문한다
+ 1. 고객은 책을 주문한다  ( Core Domain - Order ) 
  1. 고객이 주문을 할때는 반드시 결제가 되어야 한다.(Req/Rep) ( Circuit Breaker(결제 지연))
 
 
@@ -56,8 +56,8 @@ BookMarket 커버하기 - https://1sung.tistory.com/106
 
   1. 고객은 주문을 취소한다. 
   1. 주문이 취소되면 결제를 취소하여 고객에게 환불한다. ( Pub / Sub Event Dirven )
-  1. 결제가 취소되면 배송을 취소한다. 
-  1. 결제, 주문이 취소되면 주문상태를 변경한다.
+  1. 결제가 취소되면 배송을 취소한다.  ( Pub / Sub Event Dirven )
+  1. 결제, 주문이 취소되면 주문상태를 변경한다. ( Pub / Sub Event Dirven )
 
 
 비기능적 요구사항
